@@ -10,5 +10,9 @@ const database = mysql.createConnection({
 
 export const register = (req, res) => {
   const { name, email, password } = req.body
-  const query = database.query('SELECT * FROM users WHERE email = ?', [email])
+  const query = database.query(
+    'SELECT * FROM users WHERE email = ? returning *',
+    [email]
+  )
+  console.log(query)
 }
