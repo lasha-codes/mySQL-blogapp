@@ -88,3 +88,17 @@ export const login = (req, res) => {
     }
   })
 }
+
+export const getUser = (req, res) => {
+  const { token } = req.cookies
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized request' })
+  }
+  const { id } = jwt.verify(token, process.env.JWT_SECRET)
+  const query = 'SELECT * FROM users WHERE id = ?'
+  database.query(query, [id], (err, data) => {
+    if (err) throw err
+    console.log(data)
+    res.status(200).json(data)
+  })
+}
