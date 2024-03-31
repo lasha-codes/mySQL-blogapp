@@ -12,10 +12,12 @@ const database = mysql.createConnection({
 
 export const register = (req, res) => {
   const { name, email, password } = req.body
-  const query = 'SELECT * FROM users WHERE email = ? returning *'
-  const results = database.query(query, [email], (err, results) => {
+  const query = 'SELECT * FROM users'
+  database.query(query, (err, results) => {
     if (err) {
-      res.status(500).json({ message: '' })
+      res
+        .status(500)
+        .json({ message: 'oops. error has occurred in the database' })
     }
     res.json(results)
   })
