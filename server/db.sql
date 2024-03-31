@@ -1,6 +1,13 @@
 CREATE TABLE posts (
   id INT PRIMARY KEY NOT NULL,
-  user VARCHAR(100) NOT NULL,
-  image TEXT,
+  user VARCHAR(25) NOT NULL,
+  image VARBINARY(1000),
   description TEXT NOT NULL
+);
+
+CREATE TABLE users (
+  id INT PRIMARY KEY NOT NULL,
+  name VARCHAR(25) NOT NULL,
+  email VARCHAR(70) NOT NULL,
+  password VARBINARY(100) NOT NULL
 );
