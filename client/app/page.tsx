@@ -1,5 +1,6 @@
 import Header from './components/Header'
 import Posts from './components/Posts'
+import ContextProvider from './context/AppContext'
 
 const App = () => {
   return (
