@@ -8,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState<string>('')
 
   axios.defaults.baseURL = 'http://localhost:4000'
+  axios.defaults.withCredentials = true
 
   const loginUser = async (e: React.FormEvent) => {
     e.preventDefault()

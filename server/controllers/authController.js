@@ -88,3 +88,8 @@ export const login = (req, res) => {
     }
   })
 }
+
+export const checkCookie = (req, res) => {
+  const { token } = req.cookies
+  console.log(token)
+}
