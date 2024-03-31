@@ -4,7 +4,7 @@ const router = express.Router()
 
 router.use(express.json())
 
-router.get('/get-user', getUser)
+router.get('/get-user/', getUser)
 router.post('/register', register)
 router.post('/login', login)
 
