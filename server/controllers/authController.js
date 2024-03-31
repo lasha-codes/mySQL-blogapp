@@ -1,6 +1,7 @@
 import mysql from 'mysql2'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 dotenv.config()
 
 const database = mysql.createConnection({
@@ -22,9 +23,26 @@ export const register = (req, res) => {
     if (data.length > 0) {
       res.status(400).json({ message: 'User already exists.' })
     } else {
-      res
-        .status(200)
-        .json({ message: 'U have successfully created an account.' })
+      const hashedPassword = bcrypt.hashSync(password, 10)
+      const registerQuery =
+        'INSERT INTO users (name, email, password) values (?, ?, ?)'
+      database.query(
+        registerQuery,
+        [name, email, hashedPassword],
+        (err, data) => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ message: 'Sorry something went wrong with the database' })
+          }
+          res
+            .status(200)
+            .json({
+              ...data,
+              message: 'U have successfully created an account.',
+            })
+        }
+      )
     }
   })
 }
