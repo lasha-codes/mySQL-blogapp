@@ -7,7 +7,20 @@ const Login = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  const loginUser = () => {}
+  axios.defaults.baseURL = 'http://localhost:4000'
+
+  const loginUser = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const { data } = await axios.post('/user/login', {
+        email,
+        password,
+      })
+      console.log(data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <main className='w-full h-screen flex justify-center flex-col gap-10 items-center bg-main'>
