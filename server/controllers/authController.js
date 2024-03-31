@@ -52,23 +52,30 @@ export const login = (req, res) => {
     if (data.length > 0) {
       let userPassword
       let userEmail
+      let userId
 
       data.map((user) => {
         userPassword = user.password
         userEmail = user.email
+        userId = user.id
       })
 
-      console.log(userPassword, password, userEmail)
+      console.log(userPassword, password, userEmail, userId)
 
       const passwordMatches = bcrypt.compareSync(password, userPassword)
       if (passwordMatches) {
         jwt.sign(
-          { email: userData.email, userData: data.id },
+          { email: userEmail, id: userId },
           process.env.JWT_SECRET,
           (err, signedToken) => {
-            if (err) throw err
-            req.cookie('token', signedToken)
-            console.log(signedToken)
+            if (err) {
+              console.log(err)
+              throw err
+            }
+            res
+              .cookie('token', signedToken)
+              .json({ message: 'User has successfully logged in.' })
+            console.log(signedToken, 'User has successfully logged in')
           }
         )
       } else {
