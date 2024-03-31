@@ -49,12 +49,35 @@ export const login = (req, res) => {
   database.query(loginQuery, [email], (err, data) => {
     if (err) throw err
 
-    console.log(data)
-
     if (data.length > 0) {
-      console.log('user does exist u can login')
+      let userPassword
+      let userEmail
+
+      data.map((user) => {
+        userPassword = user.password
+        userEmail = user.email
+      })
+
+      console.log(userPassword, password, userEmail)
+
+      const passwordMatches = bcrypt.compareSync(password, userPassword)
+      if (passwordMatches) {
+        jwt.sign(
+          { email: userData.email, userData: data.id },
+          process.env.JWT_SECRET,
+          (err, signedToken) => {
+            if (err) throw err
+            req.cookie('token', signedToken)
+            console.log(signedToken)
+          }
+        )
+      } else {
+        console.log('password does not match the provided email')
+      }
     } else {
-      console.log('this account does not exist')
+      res.status(400).json({
+        message: 'User with this email does not exist.',
+      })
     }
   })
 }
