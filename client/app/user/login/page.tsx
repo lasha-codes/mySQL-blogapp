@@ -1,16 +1,20 @@
 'use client'
 
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const Login = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
+  const loginUser = () => {}
+
   return (
     <main className='w-full h-screen flex justify-center flex-col gap-10 items-center bg-main'>
       <h1 className='text-2xl font-light'>Login</h1>
-      <form className='flex flex-col gap-2 w-1/2'>
+      <form className='flex flex-col gap-2 w-1/2' onSubmit={loginUser}>
         <input
+          type='email'
           value={email}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
@@ -20,6 +24,7 @@ const Login = () => {
           required
         />
         <input
+          type='password'
           value={password}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)
