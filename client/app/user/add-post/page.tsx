@@ -2,14 +2,17 @@
 
 import Header from '@/app/components/Header'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import axios from 'axios'
 
 const AddPost = () => {
   const [title, setTitle] = useState<string>('')
   const [image, setImage] = useState<File | null>(null)
   const [description, setDescription] = useState<string>('')
+  const router = useRouter()
 
   axios.defaults.baseURL = 'http://localhost:4000'
+  axios.defaults.withCredentials = true
 
   const convertToBase64 = (file: any) => {
     return new Promise((resolve, reject) => {
@@ -27,11 +30,18 @@ const AddPost = () => {
   const submitImage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const response = await axios.post('')
-
     if (image) {
       const base64 = await convertToBase64(image)
       console.log(base64)
+
+      const response = await axios.post('/user/upload-post', {
+        title,
+        image: base64,
+        description,
+      })
+      console.log(response)
+
+      router.push('/')
     }
   }
 

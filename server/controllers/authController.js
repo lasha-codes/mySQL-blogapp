@@ -113,16 +113,21 @@ export const uploadPost = (req, res) => {
   const { token } = req.cookies
   if (!token) return console.log('user is not authenticated')
   const { title, image, description } = req.body
+  console.log(req.body)
   const { id } = jwt.verify(token, process.env.JWT_SECRET)
-  const query = 'SELECT * FROM users WHERE id = ?'
+  const query = 'SELECT * FROM users WHERE id = ?;'
   database.query(query, [id], (err, data) => {
     if (err) throw err
     console.log(data)
     const addPostQuery =
-      'INSERT INTO posts (author, image, description) values (?, ?, ?)'
-    database.query(addPostQuery, [title, image, description], (err, data) => {
-      if (err) throw err
-      res.status(200).json({ message: 'U have successfully added a post' })
-    })
+      'INSERT INTO posts (title, author, image, description) values (?, ?, ?, ?);'
+    database.query(
+      addPostQuery,
+      [title, 'test', image, description],
+      (err, data) => {
+        if (err) throw err
+        res.status(200).json({ message: 'U have successfully added a post' })
+      }
+    )
   })
 }
