@@ -1,18 +1,20 @@
 'use client'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import axios from 'axios'
 
 const Register = () => {
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const router = useRouter()
 
   axios.defaults.baseURL = 'http://localhost:4000'
 
   const registerUser = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response = await axios.post('/user/register', {
+      await axios.post('/user/register', {
         name,
         email,
         password,
@@ -20,7 +22,7 @@ const Register = () => {
       setName('')
       setEmail('')
       setPassword('')
-      window.location.reload()
+      router.push('/')
     } catch (err) {
       console.error(err)
     }

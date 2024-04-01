@@ -7,6 +7,7 @@ import axios from 'axios'
 const Login = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const router = useRouter()
 
   axios.defaults.baseURL = 'http://localhost:4000'
   axios.defaults.withCredentials = true
@@ -20,7 +21,7 @@ const Login = () => {
       })
       setEmail('')
       setPassword('')
-      window.location.reload()
+      router.push('/')
       console.log(data)
     } catch (err) {
       console.error(err)
