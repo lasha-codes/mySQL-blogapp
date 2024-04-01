@@ -44,7 +44,12 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
     axios.get('/user/get-user').then((response) => {
       setUser(response.data)
     })
+    axios.get('/user/get-posts').then((response) => {
+      setPosts(response.data)
+    })
   }, [])
+
+  console.log(posts)
 
   return (
     <AppContext.Provider value={{ posts, setPosts, user, setUser }}>

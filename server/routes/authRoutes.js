@@ -1,5 +1,6 @@
 import express from 'express'
 import {
+  getAllPosts,
   getUser,
   login,
   logoutUser,
@@ -8,9 +9,8 @@ import {
 } from '../controllers/authController.js'
 const router = express.Router()
 
-router.use(express.json())
-
-router.get('/get-user/', getUser)
+router.get('/get-user', getUser)
+router.get('/get-posts', getAllPosts)
 router.post('/register', register)
 router.post('/login', login)
 router.post('/logout', logoutUser)
