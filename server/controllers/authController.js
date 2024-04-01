@@ -118,16 +118,39 @@ export const uploadPost = (req, res) => {
   const query = 'SELECT * FROM users WHERE id = ?;'
   database.query(query, [id], (err, data) => {
     if (err) throw err
-    console.log(data)
+    let author
+
+    for (const row of data) {
+      if (row.name) {
+        author = row.name
+      }
+    }
+
+    console.log(author)
+
     const addPostQuery =
       'INSERT INTO posts (title, author, image, description) values (?, ?, ?, ?);'
     database.query(
       addPostQuery,
-      [title, 'test', image, description],
+      [title, author, image, description],
       (err, data) => {
         if (err) throw err
         res.status(200).json({ message: 'U have successfully added a post' })
       }
     )
   })
+}
+
+export const getAllPosts = (req, res) => {
+  try {
+    const query = 'SELECT * FROM posts;'
+    database.query(query, (err, data) => {
+      if (err) throw err
+      res.status(200).json(data)
+    })
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: 'Sorry error has ocurred while doing this' })
+  }
 }

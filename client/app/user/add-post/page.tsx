@@ -82,6 +82,9 @@ const AddPost = () => {
           placeholder='Post Description'
           required
         />
+        <button className='bg-blue-700 text-main py-3 rounded-lg hover:opacity-80 transition-all'>
+          Submit Post
+        </button>
       </form>
     </main>
   )
