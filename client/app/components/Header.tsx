@@ -3,7 +3,9 @@ import Link from 'next/link'
 const Header = () => {
   return (
     <header className='flex items-center justify-between'>
-      <h1 className='text-xl text-blue-800'>Username</h1>
+      <Link href='/' className='text-xl text-blue-800'>
+        Home
+      </Link>
       <nav>
         <Link href='/user/profile' className='text-xl text-blue-900'>
           View Profile

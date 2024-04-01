@@ -17,7 +17,10 @@ const Register = () => {
         email,
         password,
       })
-      console.log(response)
+      setName('')
+      setEmail('')
+      setPassword('')
+      window.location.reload()
     } catch (err) {
       console.error(err)
     }

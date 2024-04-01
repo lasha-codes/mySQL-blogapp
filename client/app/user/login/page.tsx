@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import axios from 'axios'
 
 const Login = () => {
@@ -17,6 +18,9 @@ const Login = () => {
         email,
         password,
       })
+      setEmail('')
+      setPassword('')
+      window.location.reload()
       console.log(data)
     } catch (err) {
       console.error(err)
