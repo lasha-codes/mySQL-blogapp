@@ -102,3 +102,9 @@ export const getUser = (req, res) => {
     res.status(200).json(data)
   })
 }
+
+export const logoutUser = (req, res) => {
+  req.cookie('token', '').json({
+    message: 'U have successfully logged out',
+  })
+}
