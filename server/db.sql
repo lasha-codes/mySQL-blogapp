@@ -1,5 +1,6 @@
 CREATE TABLE posts (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  title TEXT NOT NULL,
   author VARCHAR(25) NOT NULL,
   image TEXT,
   description TEXT NOT NULL

@@ -2,11 +2,14 @@
 
 import Header from '@/app/components/Header'
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const AddPost = () => {
   const [title, setTitle] = useState<string>('')
   const [image, setImage] = useState<File | null>(null)
   const [description, setDescription] = useState<string>('')
+
+  axios.defaults.baseURL = 'http://localhost:4000'
 
   const convertToBase64 = (file: any) => {
     return new Promise((resolve, reject) => {
@@ -23,6 +26,9 @@ const AddPost = () => {
 
   const submitImage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const response = await axios.post('')
+
     if (image) {
       const base64 = await convertToBase64(image)
       console.log(base64)
