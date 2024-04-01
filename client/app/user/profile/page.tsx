@@ -2,16 +2,18 @@
 
 import Header from '@/app/components/Header'
 import { AppContext } from '@/app/context/AppContext'
+import axios from 'axios'
 import { useContext } from 'react'
-
-interface User {
-  id: number
-  email: string
-  password: number | string
-}
+import { useRouter } from 'next/navigation'
 
 const Profile = () => {
   const { user } = useContext(AppContext)
+  const router = useRouter()
+
+  const logoutUser = async () => {
+    await axios.post('/user/logout')
+    router.push('/')
+  }
 
   return (
     <main className='w-full bg-main h-screen p-10'>
@@ -28,7 +30,10 @@ const Profile = () => {
               )
             })}
         </div>
-        <button className='bg-red-400 text-white px-6 py-1 rounded-full hover:opacity-80 transition-all'>
+        <button
+          onClick={logoutUser}
+          className='bg-red-400 text-white px-6 py-1 rounded-full hover:opacity-80 transition-all'
+        >
           Logout
         </button>
       </div>

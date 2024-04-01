@@ -92,7 +92,7 @@ export const login = (req, res) => {
 export const getUser = (req, res) => {
   const { token } = req.cookies
   if (!token) {
-    return res.status(401).json({ message: 'Unauthorized request' })
+    return
   }
   const { id } = jwt.verify(token, process.env.JWT_SECRET)
   const query = 'SELECT * FROM users WHERE id = ?'
@@ -104,7 +104,7 @@ export const getUser = (req, res) => {
 }
 
 export const logoutUser = (req, res) => {
-  req.cookie('token', '').json({
+  res.cookie('token', '').json({
     message: 'U have successfully logged out',
   })
 }
