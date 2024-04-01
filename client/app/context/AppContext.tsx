@@ -15,6 +15,7 @@ interface Post {
 
 interface User {
   id: number
+  name: string
   email: string
   password: string | number
 }
@@ -22,22 +23,22 @@ interface User {
 interface AppContextType {
   posts: Post[] | []
   setPosts: React.Dispatch<React.SetStateAction<Post[] | []>>
-  user: User | object
-  setUser: React.Dispatch<React.SetStateAction<User | object>>
+  user: User[] | []
+  setUser: React.Dispatch<React.SetStateAction<User[] | []>>
 }
 
 const initialContextValue: AppContextType = {
   posts: [],
   setPosts: () => [],
-  user: {},
-  setUser: () => {},
+  user: [],
+  setUser: () => [],
 }
 
 export const AppContext = createContext<AppContextType>(initialContextValue)
 
 const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [posts, setPosts] = useState<Post[] | []>([])
-  const [user, setUser] = useState<User | object>({})
+  const [user, setUser] = useState<User[] | []>([])
 
   useEffect(() => {
     axios.get('/user/get-user').then((response) => {
