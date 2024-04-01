@@ -22,7 +22,7 @@ const Posts = () => {
                   src={post.image}
                   width={100}
                   height={100}
-                  alt='post image'
+                  alt='post image i guess'
                 />
               </div>
               <div className='border rounded-md flex flex-col items-center p-4'>
