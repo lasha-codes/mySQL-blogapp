@@ -7,7 +7,7 @@ import Image from 'next/image'
 const Posts = () => {
   const { posts } = useContext(AppContext)
   return (
-    <section className='mt-10 flex justify-center flex-wrap'>
+    <section className='mt-10 flex justify-center flex-wrap gap-10'>
       {posts &&
         posts.map((post, idx: number) => {
           return (
